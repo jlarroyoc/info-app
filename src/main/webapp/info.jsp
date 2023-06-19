@@ -32,7 +32,7 @@
 					    <object data="./images/localaddr.svg" width="48" height="48"> </object>
 						<div>
 						  <h5 class="fw-bold mb-0">LocalAddr</h5>
-						  ${localName}
+						  ${localAddr}
 						</div>
 					  </li>
 					  <li class="d-flex gap-4">
