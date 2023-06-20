@@ -1,4 +1,4 @@
-FROM java:openjdk-17-ubi8 AS builder
+FROM ubi8/openjdk-17 AS builder
 WORKDIR /usr/src
 COPY . /usr/src
 RUN mvn clean 
