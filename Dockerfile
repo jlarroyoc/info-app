@@ -1,10 +1,9 @@
-FROM docker.io/tomcat:jdk11
-USER 0
-RUN apt-get -y update && apt-get -y install maven
-COPY . /usr/src
+FROM java:openjdk-17-ubi8 AS builder
 WORKDIR /usr/src
+COPY . /usr/src
 RUN mvn clean 
 RUN mvn package 
-RUN cp target/info-app.war $CATALINA_HOME/webapps
-RUN chgrp -R 0 /usr/src && chmod -R g=u /usr/src
-USER 1001
+
+FROM docker.io/tomcat:jdk11
+COPY --from=builder /usr/src/target/info-app.war  $CATALINA_HOME/webapps
+
