@@ -5,7 +5,8 @@ COPY . /usr/src
 RUN mvn clean 
 RUN mvn package 
 
-FROM docker.io/tomcat:jdk11
+#FROM docker.io/tomcat:jdk11
+FROM tomcat:8.0-alpine
 COPY --from=builder /usr/src/target/info-app.war  /usr/local/tomcat/webapps/
 
 EXPOSE 8080
