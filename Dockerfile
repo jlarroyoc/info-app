@@ -1,4 +1,4 @@
-FROM docker.io/tomcat:jre11
+FROM docker.io/tomcat:jdk11
 USER 0
 RUN apt-get -y update && apt-get -y install maven
 COPY . /usr/src
