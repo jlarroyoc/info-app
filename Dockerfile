@@ -1,5 +1,6 @@
 FROM ubi8/openjdk-17 AS builder
 WORKDIR /usr/src
+USER 0
 COPY . /usr/src
 RUN mvn clean 
 RUN mvn package 
