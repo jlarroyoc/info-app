@@ -1,0 +1,14 @@
+FROM registry.access.redhat.com/ubi8/openjdk-17 AS builder
+WORKDIR /usr/src
+USER 0
+COPY . /usr/src
+RUN mvn clean package
+
+FROM docker.io/tomcat:jdk21-openjdk-slim
+COPY --from=builder /usr/src/target/info-app.war  /tmp/
+# Migramos la app de javax a jakarta (tomcat 10 no es compatible con javax)
+RUN migrate.sh /tmp/info-app.war /usr/local/tomcat/webapps/ROOT.war && rm /tmp/info-app.war
+RUN chgrp -R 0 /usr/local/tomcat/ && chmod -R g=u /usr/local/tomcat/
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+
